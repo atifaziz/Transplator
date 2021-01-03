@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Transplator.csproj"
+                      ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer" />
+    <PackageReference Remove="Microsoft.CodeAnalysis.Analyzers" />
+  </ItemGroup>
+
+  <Target Name="_InjectAdditionalFiles" BeforeTargets="PrepareForBuild;CompileDesignTime;GenerateMSBuildEditorConfigFileShouldRun">
+    <ItemGroup>
+      <CompilerVisibleProperty Include="DebugTransplator" />
+      <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemType" />
+      <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Name" />
+      <AdditionalFiles Include="@(None)"
+                       Condition="'%(Extension)' == '.cstt'"
+                       SourceItemType="Transplate"
+                       KeepMetadata="Name" />
+    </ItemGroup>
+  </Target>
+
+</Project>

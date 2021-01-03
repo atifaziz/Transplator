@@ -1,0 +1,6 @@
+﻿Hello world!
+
+{%~ var now = DateTime.Now -%}
+
+Today, the date is {% now.ToString("MMM dd, yyyy") %}.
+The current time is {% now.ToString("HH:mm") %}.

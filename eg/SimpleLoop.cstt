@@ -1,0 +1,14 @@
+﻿
+{%# keep line(s) above here blank %}
+{%-
+var ordinals = new[]
+{
+    "First", "Second", "Third", "Fourth", "Fifth",
+    "Sixth", "Seventh", "Eighth", "Nineth", "Tenth",
+};
+-%}
+<ul>
+    {%~ for (var i = 0; i < ordinals.Length; i++) { ~%}
+    <li>{% i + 1 %}. {% ordinals[i] %}</li>
+    {%~ } ~%}
+</ul>

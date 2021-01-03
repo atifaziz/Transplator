@@ -1,0 +1,24 @@
+﻿{%
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+static partial class ParametersTemplate
+{
+    public static string Render(IEnumerable<string> ordinals)
+    {
+        var sb = new StringBuilder();
+-%}
+<ul>
+    {%~ foreach (var e in ordinals.Select((ord, i) => new { Num = i + 1, Ord = ord })) { ~%}
+    <li>{% e.Num %}. {% e.Ord %}</li>
+    {%~ } ~%}
+</ul>
+{%
+        return sb.ToString();
+
+        void WriteText(string value) => sb.Append(value);
+        void WriteValue(object value) => sb.Append(value);
+    }
+}
+~%}
