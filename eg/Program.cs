@@ -10,7 +10,7 @@ Console.Out.Flush();
 Console.Write(ParametersTemplate.Render(new[]
 {
     "First", "Second", "Third", "Fourth", "Fifth",
-    "Sixth", "Seventh", "Eighth", "Nineth", "Tenth",
+    "Sixth", "Seventh", "Eighth", "Ninth", "Tenth",
 }));
 Console.Out.Flush();
 
