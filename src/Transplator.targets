@@ -11,6 +11,9 @@
 
   <Target Name="EnsureSourceGenerators" BeforeTargets="BeforeCompile;CoreCompile">
 
+    <!-- Credit, source & inspiration:
+         https://github.com/devlooped/ThisAssembly/blob/0b17c10b20ca7c762bfedca736290bc0b54e4b75/src/ThisAssembly.Prerequisites/ThisAssembly.Prerequisites.targets#L8-L15 -->
+
     <Error Text="Transplator requires MSBuild 16.8+ or .NET SDK 5.0+."
            Condition="$([System.Version]::Parse('16.8.0').CompareTo($([System.Version]::Parse($(MSBuildVersion))))) == 1" />
 
