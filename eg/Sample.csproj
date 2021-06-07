@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\src\Transplator.props" />
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
@@ -14,16 +16,6 @@
     <PackageReference Remove="Microsoft.CodeAnalysis.Analyzers" />
   </ItemGroup>
 
-  <Target Name="_InjectAdditionalFiles" BeforeTargets="PrepareForBuild;CompileDesignTime;GenerateMSBuildEditorConfigFileShouldRun">
-    <ItemGroup>
-      <CompilerVisibleProperty Include="DebugTransplator" />
-      <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemType" />
-      <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Name" />
-      <AdditionalFiles Include="@(None)"
-                       Condition="'%(Extension)' == '.cstt'"
-                       SourceItemType="Transplate"
-                       KeepMetadata="Name" />
-    </ItemGroup>
-  </Target>
+  <Import Project="..\src\Transplator.targets" />
 
 </Project>

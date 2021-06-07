@@ -1,0 +1,25 @@
+<Project>
+
+  <Target Name="_InjectAdditionalFiles" BeforeTargets="PrepareForBuild;CompileDesignTime;GenerateMSBuildEditorConfigFileShouldRun">
+    <ItemGroup>
+      <AdditionalFiles Include="@(None)"
+                       Condition="'%(Extension)' == '.cstt'"
+                       SourceItemType="Transplate"
+                       KeepMetadata="Name" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="EnsureSourceGenerators" BeforeTargets="BeforeCompile;CoreCompile">
+
+    <Error Text="Transplator requires MSBuild 16.8+ or .NET SDK 5.0+."
+            Condition="$([System.Version]::Parse('16.8.0').CompareTo($([System.Version]::Parse($(MSBuildVersion))))) == 1" />
+
+    <!-- See https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/langversion-compiler-option -->
+    <Warning Text="Transplator uses Roslyn source generators, which are only supported in C# 9.0 or greater at the moment."
+             Condition="'$(Language)' != 'C#' Or ('$(LangVersion)' != 'preview' And
+                                                  '$(LangVersion)' != 'latest' And
+                                                  '$(LangVersion)' != 'latestMajor' And
+                                                  '$(LangVersion)' &lt; '9.0')" />
+  </Target>
+
+</Project>
