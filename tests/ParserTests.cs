@@ -166,7 +166,7 @@ namespace Transplator.Tests
         [TestCase("{% foo ~%} \t \r bar \r \t {%~ baz %}",
                   "{% foo ~%} bar \r{%~ baz %}")]
         [TestCase("\r\n \t{%- foo -%}\r\n \t", "{%- foo -%}")]
-        [TestCase("\t \r\n{%~ foo ~%}\r\n \t", "\t \r\n{%~ foo ~%}")]
+        [TestCase("\t \r\n{%~ foo ~%}\r\n \t", "\t \r\n{%~ foo ~%} \t")]
         public void Trimming(string source, string expected)
         {
             var parts =

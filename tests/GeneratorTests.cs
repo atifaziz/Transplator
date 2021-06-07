@@ -30,8 +30,8 @@ namespace Transplator.Tests
                 "{",
                 "    void RenderCore()",
                 "    {",
-                "Append(@\"foo = \");",
-                "Append(bar);",
+                "WriteText(@\"foo = \");",
+                "WriteValue(bar);",
                 "    }",
                 "}",
                 string.Empty
@@ -57,8 +57,8 @@ namespace Transplator.Tests
                 "{",
                 "    void RenderCore()",
                 "    {",
-                "Append(@\"foo = \");",
-                "Append(bar);",
+                "WriteText(@\"foo = \");",
+                "WriteValue(bar);",
                 "    }",
                 "}",
                 string.Empty
@@ -74,7 +74,7 @@ namespace Transplator.Tests
 
             var compilation =
                 CSharpCompilation.Create("generated.dll",
-                                         new[] { CSharpSyntaxTree.ParseText(source) },
+                                         syntaxTrees: null,
                                          references,
                                          new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
@@ -84,7 +84,7 @@ namespace Transplator.Tests
 
             RsAnalyzerConfigOptions options =
                 new AnalyzerConfigOptions(
-                    KeyValuePair.Create("build_metadata.AdditionalFiles.SourceItemType", "foobar"));
+                    KeyValuePair.Create("build_metadata.AdditionalFiles.SourceItemType", "Transplate"));
 
             var driver =
                 CSharpGeneratorDriver.Create(
