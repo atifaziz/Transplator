@@ -45,10 +45,10 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/raboof/api/v2/package
   api_key:
-    secure: fhGwXyO35FSshRzs5GWmF1LJTrd1sIqmS/jNCSfO2LfOciuYAKiXuFMYZFGiTAl+
+    secure: xIBSWRCfK1UbGxdQG3Mq74BspgIZVE8fApXWsfAL9QLcqv0YLWECSZJ/xVYbhm23
   symbol_server: https://www.myget.org/F/raboof/symbols/api/v2/package
   on:
-    branch: deploy
+    branch: master
 notifications:
 - provider: Email
   to:
