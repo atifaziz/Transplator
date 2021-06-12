@@ -4,6 +4,9 @@ using System.Text;
 Console.Write(HelloWorldTemplate.Render());
 Console.Out.Flush();
 
+Console.Write(ModelTemplate.Render(DateTime.Now));
+Console.Out.Flush();
+
 Console.Write(SimpleLoopTemplate.Render());
 Console.Out.Flush();
 
@@ -34,6 +37,21 @@ partial class HelloWorldTemplate : Template
     public static string Render()
     {
         var template = new HelloWorldTemplate();
+        template.RenderCore();
+        return template.ToString();
+    }
+}
+
+partial class ModelTemplate : Template
+{
+    ModelTemplate(DateTime time, StringBuilder? sb = null) : base(sb) =>
+        Time = time;
+
+    DateTime Time { get; }
+
+    public static string Render(DateTime time)
+    {
+        var template = new ModelTemplate(time);
         template.RenderCore();
         return template.ToString();
     }
