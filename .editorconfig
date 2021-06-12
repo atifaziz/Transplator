@@ -20,7 +20,7 @@ indent_style = tab
 [*.{json,yml}]
 indent_size = 2
 
-[*.{cs,tt}]
+[*.{cs,tt,cstt}]
 charset = utf-8
 indent_style = space
 indent_size = 4

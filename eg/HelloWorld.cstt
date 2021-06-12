@@ -1,4 +1,4 @@
-﻿Hello world!
+Hello world!
 
 {%~ var now = DateTime.Now -%}
 

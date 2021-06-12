@@ -1,4 +1,4 @@
-﻿Hello world!
+Hello world!
 
 Today, the date is {% Time.ToString("MMM dd, yyyy") %}.
 The current time is {% Time.ToString("HH:mm") %}.
