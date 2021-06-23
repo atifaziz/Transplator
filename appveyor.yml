@@ -30,7 +30,8 @@ before_build:
 build_script:
 - ps: |-
     $id = ([datetimeoffset]$env:APPVEYOR_REPO_COMMIT_TIMESTAMP).ToUniversalTime().ToString('yyyyMMdd''t''HHmm')
-    if ($isWindows) { .\pack.cmd ci-$id } else { ./pack.sh ci-$id }
+    $pack = if ($isWindows) { '.\pack.cmd' } else { './pack.sh' }
+    & $pack --version-suffix ci-$id "-p:PackageReleaseNotes=Commit @ $(git rev-parse HEAD)"
 test_script:
 - cmd: test.cmd
 - sh: ./test.sh
