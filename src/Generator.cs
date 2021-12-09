@@ -114,8 +114,8 @@ public sealed class Generator : ISourceGenerator
 
 partial class ").Append(name).AppendLine(@"Template
 {
-void RenderCore()
-{");
+    void RenderCore()
+    {");
         }
 
         foreach (var (token, start, end) in tokenList)
