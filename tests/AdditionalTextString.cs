@@ -1,22 +1,21 @@
-namespace Transplator.Tests
+namespace Transplator.Tests;
+
+using System.Threading;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
+
+sealed class AdditionalTextString : AdditionalText
 {
-    using System.Threading;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.Text;
+    readonly SourceText _text;
 
-    sealed class AdditionalTextString : AdditionalText
+    public AdditionalTextString(string path, string text)
     {
-        readonly SourceText _text;
-
-        public AdditionalTextString(string path, string text)
-        {
-            Path = path;
-            _text = SourceText.From(text);
-        }
-
-        public override SourceText? GetText(CancellationToken cancellationToken = default) =>
-            _text;
-
-        public override string Path { get; }
+        Path = path;
+        _text = SourceText.From(text);
     }
+
+    public override SourceText? GetText(CancellationToken cancellationToken = default) =>
+        _text;
+
+    public override string Path { get; }
 }
