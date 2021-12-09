@@ -44,7 +44,7 @@ public enum PrivateTokenTraits
 }
 
 [DebuggerDisplay(nameof(DebuggerDisplayString) + "(),nq")]
-public readonly struct Token : IEquatable<Token>
+public readonly record struct Token
 {
     internal Token(TokenTraits traits, int start, int length)
     {
@@ -64,14 +64,6 @@ public readonly struct Token : IEquatable<Token>
     public int Length { get; }
 
     internal bool HasTraits(TokenTraits traits) => (Traits & traits) == traits;
-
-    public override bool Equals(object? obj) => obj is Token other && Equals(other);
-    public bool Equals(Token other) => Traits == other.Traits && Start == other.Start && Length == other.Length;
-
-    public override int GetHashCode() => unchecked(((int)Traits * 397) ^ Start * 397 ^ Length);
-
-    public static bool operator ==(Token left, Token right) => left.Equals(right);
-    public static bool operator !=(Token left, Token right) => !left.Equals(right);
 
     public override string ToString() => $"{Kind} [{Start}..{End}) {{ {Traits} }}";
 
