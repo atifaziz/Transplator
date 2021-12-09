@@ -14,42 +14,41 @@
 //
 #endregion
 
-namespace Transplator
+namespace Transplator;
+
+using System;
+using System.Runtime.Serialization;
+
+[Serializable]
+public class SyntaxErrorException : Exception
 {
-    using System;
-    using System.Runtime.Serialization;
+    public SyntaxErrorException() : this(null) {}
+    public SyntaxErrorException(string? message) : this(message, null) {}
+    public SyntaxErrorException(string? message, Exception? inner) : this(-1, message, inner) {}
+    public SyntaxErrorException(int offset) : this(offset, null) {}
+    public SyntaxErrorException(int offset, string? message) : this(offset, message, null) {}
 
-    [Serializable]
-    public class SyntaxErrorException : Exception
+    public SyntaxErrorException(int offset, string? message, Exception? inner) :
+        base(FormatMessage(message, offset), inner)
     {
-        public SyntaxErrorException() : this(null) {}
-        public SyntaxErrorException(string? message) : this(message, null) {}
-        public SyntaxErrorException(string? message, Exception? inner) : this(-1, message, inner) {}
-        public SyntaxErrorException(int offset) : this(offset, null) {}
-        public SyntaxErrorException(int offset, string? message) : this(offset, message, null) {}
+        Offset = Math.Max(offset, -1);
+    }
 
-        public SyntaxErrorException(int offset, string? message, Exception? inner) :
-            base(FormatMessage(message, offset), inner)
-        {
-            Offset = Math.Max(offset, -1);
-        }
+    static string FormatMessage(string? message, int offset) =>
+        message ?? (offset >= 0 ? "Syntax error." : $"Syntax error at offset {offset}.");
 
-        static string FormatMessage(string? message, int offset) =>
-            message ?? (offset >= 0 ? "Syntax error." : $"Syntax error at offset {offset}.");
+    protected SyntaxErrorException(SerializationInfo info,
+                                   StreamingContext context) :
+        base(info, context)
+    {
+        Offset = info.GetInt32(nameof(Offset));
+    }
 
-        protected SyntaxErrorException(SerializationInfo info,
-                                       StreamingContext context) :
-            base(info, context)
-        {
-            Offset = info.GetInt32(nameof(Offset));
-        }
+    public int Offset { get; }
 
-        public int Offset { get; }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue(nameof(Offset), Offset);
-        }
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(Offset), Offset);
     }
 }

@@ -14,32 +14,31 @@
 //
 #endregion
 
-namespace Transplator
+namespace Transplator;
+
+using System.Diagnostics;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
+
+// Inspiration & credit:
+// https://github.com/devlooped/ThisAssembly/blob/43eb32fa24c25ddafda1058a53857ea3e305296a/src/GeneratorExtension.cs
+
+static class Extensions
 {
-    using System.Diagnostics;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.Diagnostics;
+    public static void LaunchDebuggerIfFlagged(this GeneratorExecutionContext context,
+                                               string generatorName) =>
+        context.AnalyzerConfigOptions.GlobalOptions.LaunchDebuggerIfFlagged(generatorName);
 
-    // Inspiration & credit:
-    // https://github.com/devlooped/ThisAssembly/blob/43eb32fa24c25ddafda1058a53857ea3e305296a/src/GeneratorExtension.cs
-
-    static class Extensions
+    public static void LaunchDebuggerIfFlagged(this AnalyzerConfigOptions options,
+                                               string generatorName)
     {
-        public static void LaunchDebuggerIfFlagged(this GeneratorExecutionContext context,
-                                                   string generatorName) =>
-            context.AnalyzerConfigOptions.GlobalOptions.LaunchDebuggerIfFlagged(generatorName);
-
-        public static void LaunchDebuggerIfFlagged(this AnalyzerConfigOptions options,
-                                                   string generatorName)
+        if (options.IsFlagged("build_property.DebugSourceGenerators") ||
+            options.IsFlagged("build_property.Debug" + generatorName))
         {
-            if (options.IsFlagged("build_property.DebugSourceGenerators") ||
-                options.IsFlagged("build_property.Debug" + generatorName))
-            {
-                Debugger.Launch();
-            }
+            Debugger.Launch();
         }
-
-        public static bool IsFlagged(this AnalyzerConfigOptions options, string name) =>
-            options.TryGetValue(name, out var s) && bool.TryParse(s, out var flag) && flag;
     }
+
+    public static bool IsFlagged(this AnalyzerConfigOptions options, string name) =>
+        options.TryGetValue(name, out var s) && bool.TryParse(s, out var flag) && flag;
 }
