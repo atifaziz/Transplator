@@ -34,7 +34,7 @@ build_script:
     & $pack --version-suffix ci-$id "-p:PackageReleaseNotes=Commit @ $(git rev-parse HEAD)"
 test_script:
 - cmd: test.cmd
-- cmd: Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe
+- ps: if ($isWindows) { Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe }
 - cmd: codecov.exe
 - sh: ./test.sh
 artifacts:
