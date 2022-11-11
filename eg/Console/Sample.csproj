@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\src\Transplator.props" />
+  <Import Project="..\..\src\Transplator.props" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,12 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Transplator.csproj"
+    <ProjectReference Include="..\..\src\Transplator.csproj"
                       ReferenceOutputAssembly="false"
                       OutputItemType="Analyzer" />
     <PackageReference Remove="Microsoft.CodeAnalysis.Analyzers" />
   </ItemGroup>
 
-  <Import Project="..\src\Transplator.targets" />
+  <Import Project="..\..\src\Transplator.targets" />
 
 </Project>

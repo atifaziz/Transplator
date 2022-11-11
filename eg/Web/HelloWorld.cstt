@@ -1,0 +1,17 @@
+<!doctype html>
+{%~ var now = DateTime.Now -%}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Hello World Example</title>
+    </head>
+    <body>
+        <h1>Hello <em>{% Name %}</em>!</h1>
+        <p>
+            Today, the date is {% now.ToString("MMM dd, yyyy") %}.
+        </p>
+        <p>
+            The current time is {% now.ToString("HH:mm:ss") %}.
+        </p>
+</body>
+</html>
