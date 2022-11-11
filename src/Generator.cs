@@ -29,12 +29,9 @@ using TokenTraits = PrivateTokenTraits;
 public sealed class Generator : ISourceGenerator
 {
     static readonly DiagnosticDescriptor SyntaxError =
-        new(id: "TPR001",
-            title: "Syntax error",
-            messageFormat: "Syntax error: {0}",
-            category: "Transplator",
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true);
+        new DiagnosticDescriptor(id: "TPR001", title: "Syntax error",
+                                 messageFormat: "Syntax error: {0}", category: "Transplator",
+                                 DiagnosticSeverity.Error, isEnabledByDefault: true);
 
     public void Initialize(GeneratorInitializationContext context) {}
 
